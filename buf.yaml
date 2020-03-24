@@ -1,6 +1,8 @@
 build:
   roots:
     - proto
+    - vendor/github.com/gogo/googleapis
+    - vendor/github.com/gogo/protobuf
 lint:
   use:
     - DEFAULT

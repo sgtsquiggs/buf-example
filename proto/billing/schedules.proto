@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package billing;
+option (gogoproto.goproto_registration) = true;
+
+import "google/protobuf/wrappers.proto";
+import "gogoproto/gogo.proto";
+
+message ShortStockSchedule {
+  message Request {
+    google.protobuf.StringValue min_spread = 4 [(gogoproto.wktpointer) = true, (gogoproto.moretags) = 'validate:"omitempty,numeric"'];
+  }
+}

@@ -91,3 +91,19 @@ ssh: $(BUF)
 clean:
 	git clean -xdf
 	rm -rf $(CACHE_BASE)
+
+# test checks if image generation is repeatable
+
+.PHONY: test
+test:
+	buf image build -o image1.bin
+	buf image build -o image2.bin
+	diff image1.bin image2.bin
+	rm image1.bin image2.bin
+
+.PHONY: test-docker
+test-docker:
+	docker run --volume "$$(pwd):/workspace" --workdir /workspace bufbuild/buf image build -o image1.bin.gz
+	docker run --volume "$$(pwd):/workspace" --workdir /workspace bufbuild/buf image build -o image2.bin.gz
+	diff image1.bin.gz image2.bin.gz
+	rm image1.bin.gz image2.bin.gz
